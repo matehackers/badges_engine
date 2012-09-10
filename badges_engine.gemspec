@@ -10,17 +10,17 @@ Gem::Specification.new do |s|
   s.authors     = ["Andrew Kuklewicz"]
   s.email       = ["andrew@prx.org"]
   s.homepage    = ""
-  s.summary     = "Rails 3.1 Engine for Mozilla Open Badges Issuers"
-  s.description = "Rails 3.1 Engine for Mozilla Open Badges Issuers"
-  
+  s.summary     = "Rails 3.2 Engine for Mozilla Open Badges Issuers"
+  s.description = "Rails 3.2 Engine for Mozilla Open Badges Issuers"
+
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
-  
-  s.add_dependency 'rails', '~> 3.1.0'
+
+  s.add_dependency 'rails', '~> 3.2.0'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'haml'
   s.add_dependency 'haml-rails'
-  
+
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
 end
