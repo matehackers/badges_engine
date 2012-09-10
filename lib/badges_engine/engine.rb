@@ -19,7 +19,7 @@ module BadgesEngine
         BadgesEngine::Assertion.associate_user_class(user_class)
         user_class.send(:include, BadgesEngine::BadgesUser)
       else
-        Rails.logger.warn "No BadgesEngine::Configuration.user_class defined."
+        ::Rails.logger.warn "No BadgesEngine::Configuration.user_class defined."
       end
     end
     
