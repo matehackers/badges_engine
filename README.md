@@ -4,7 +4,7 @@ BadgesEngine
 
 Description
 -----------
-This project is a mountable Rails 3.1 engine gem.  The purpose is to make a Rails app that installs and mounts this an issuer of badges following the design of the Mozilla Open Badges Infrastructure: [http://openbadges.org/)](http://openbadges.org/).
+This project is a mountable Rails 3.2 engine gem.  The purpose is to make a Rails app that installs and mounts this an issuer of badges following the design of the Mozilla Open Badges Infrastructure: [http://openbadges.org/)](http://openbadges.org/).
 
 Maybe it will be useful to folks interested in the ['Badges for Lifelong Learning'](http://www.dmlcompetition.net/)
 
@@ -13,7 +13,7 @@ Install
 -------
 Start by adding the gem to your Gemfile, then do the usual routine, and install the bundle:
 
-    gem 'badges_engine'
+    gem 'badges_engine', git: 'git://github.com/alfielapeter/badges_engine.git'
 
 Next there are migrations to copy over:
 

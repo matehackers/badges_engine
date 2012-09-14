@@ -70,13 +70,9 @@ module BadgesEngine
       end
     end
 
-    def open_badges_as_json
-      as_json(  :only=>[:evidence, :expires, :issued_on],
-                :methods=>[:recipient, :salt],
-                :include=>{ :badge=>{
-                            :only=>[:version, :name, :image, :description, :criteria],
-                            :methods=>:issuer} }
-              )
+    def as_json(options={})
+      super(only: [:evidence, :expires, :issued_on], methods: [:recipient, :salt],
+            include: { badge: { only: [:version, :name, :image, :description, :criteria], methods: :issuer} })
     end
 
   end
