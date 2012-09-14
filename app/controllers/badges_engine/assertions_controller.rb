@@ -1,5 +1,6 @@
 module BadgesEngine
   class AssertionsController < ApplicationController
+    layout false
 
     def bake_callback
       @assertion = Assertion.find(params[:id])
@@ -16,12 +17,12 @@ module BadgesEngine
         end
       end
     end
-    
+
     # GET /assertions
     # GET /assertions.json
     def index
       @assertions = Assertion.all
-  
+
       respond_to do |format|
         format.html # index.html.haml
         format.json { render json: @assertions }
@@ -32,34 +33,34 @@ module BadgesEngine
     # GET /assertions/1.json
     def show
       @assertion = Assertion.find(params[:id])
-  
+
       respond_to do |format|
         format.html # show.html.haml
         format.json { render json: @assertion }
       end
     end
-  
+
     # GET /assertions/new
     # GET /assertions/new.json
     def new
       @assertion = Assertion.new
-  
+
       respond_to do |format|
         format.html # new.html.haml
         format.json { render json: @assertion }
       end
     end
-  
+
     # GET /assertions/1/edit
     def edit
       @assertion = Assertion.find(params[:id])
     end
-  
+
     # POST /assertions
     # POST /assertions.json
     def create
       @assertion = Assertion.new(params[:assertion])
-  
+
       respond_to do |format|
         if @assertion.save
           format.html { redirect_to @assertion, notice: 'Assertion was successfully created.' }
@@ -70,12 +71,12 @@ module BadgesEngine
         end
       end
     end
-  
+
     # PUT /assertions/1
     # PUT /assertions/1.json
     def update
       @assertion = Assertion.find(params[:id])
-  
+
       respond_to do |format|
         if @assertion.update_attributes(params[:assertion])
           format.html { redirect_to @assertion, notice: 'Assertion was successfully updated.' }
@@ -86,13 +87,13 @@ module BadgesEngine
         end
       end
     end
-  
+
     # DELETE /assertions/1
     # DELETE /assertions/1.json
     def destroy
       @assertion = Assertion.find(params[:id])
       @assertion.destroy
-  
+
       respond_to do |format|
         format.html { redirect_to assertions_url }
         format.json { head :ok }
