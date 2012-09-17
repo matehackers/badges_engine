@@ -12,14 +12,13 @@ module BadgesEngine
     validates_presence_of :badge_id
     validates_presence_of :user_id
 
-    # validates_associated :user, :badge
     validates_associated :badge
 
     before_validation(:on=>:create) do
       self.token = SecureRandom.urlsafe_base64(16)
     end
 
-    after_commit :bake, :if => :update_assertion?
+    # after_commit :bake, :if => :update_assertion?
 
     class <<self
       def associate_user_class(user_class)
