@@ -7,7 +7,7 @@ module BadgesEngine
       respond_to do |format|
         if @assertion && @assertion.token == params[:token]
           format.html { render action: 'show' }
-          format.json { render json: @assertion.open_badges_as_json }
+          format.json { render json: @assertion }
         else
           format.html {render text: 'Cannot access badge assertion.',  status: :unauthorized}
           format.json {
