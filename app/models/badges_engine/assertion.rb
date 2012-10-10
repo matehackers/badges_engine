@@ -18,8 +18,6 @@ module BadgesEngine
       self.token = SecureRandom.urlsafe_base64(16)
     end
 
-    # after_commit :bake, :if => :update_assertion?
-
     class <<self
       def associate_user_class(user_class)
         belongs_to :user, :class_name=>user_class.to_s, :foreign_key=>'user_id'
@@ -44,10 +42,11 @@ module BadgesEngine
     end
 
     def bake
+      return nil unless update_assertion?
       uri = URI.parse(BadgesEngine::Configuration.baker_url)
       http = Net::HTTP.new(uri.host, uri.port)
       path = "#{uri.path}?assertion=#{self.baking_callback_url}"
-      headers = {'Content-Type'=>'application/json','Accept'=>'application/json'}
+      headers = {'Content-Type'=>'application/json'}
       logger.debug("request: #{uri.host}#{path}")
       response = http.get(path, headers)
 
@@ -56,16 +55,11 @@ module BadgesEngine
       end
 
       if !response || response.body.blank?
-        raise "Baking badge failed: Response was blank:\n\t'#{response.inspect}'"
-      end
-
-      badges_response = ActiveSupport::JSON.decode(response.body)
-      logger.debug("response: #{badges_response.inspect}")
-
-      if badges_response['status'] == 'success'
-        self.update_attribute(:is_baked, true)
+        logger.debug "Baking badge failed: Response was blank:\n\t'#{response.inspect}'"
+        nil
       else
-        raise "Baking badge failed:\n\tStatus:'#{badges_response['status']}'\n\tError:'#{badges_response['error']}'\n\tReason:'#{badges_response['reason']}'"
+        self.update_attribute(:is_baked, true)
+        response.body
       end
     end
 
