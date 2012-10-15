@@ -32,17 +32,12 @@ module BadgesEngine
       BadgesEngine::Configuration.salt
     end
 
-    def update_assertion?
-      persisted? && !is_baked?
-    end
-
     def baking_callback_url
       origin_uri = URI.parse(BadgesEngine::Configuration.issuer.origin)
       secret_assertion_url(:id=>self.id, :token=>self.token, :host=>origin_uri.host)
     end
 
     def bake
-      return nil unless update_assertion?
       uri = URI.parse(BadgesEngine::Configuration.baker_url)
       http = Net::HTTP.new(uri.host, uri.port)
       path = "#{uri.path}?assertion=#{self.baking_callback_url}"
@@ -55,12 +50,10 @@ module BadgesEngine
       end
 
       if !response || response.body.blank?
-        logger.debug "Baking badge failed: Response was blank:\n\t'#{response.inspect}'"
-        nil
-      else
-        self.update_attribute(:is_baked, true)
-        response.body
+        raise "Baking badge failed: Response was blank:\n\t'#{response.inspect}'"
       end
+
+      response.body
     end
 
     def as_json(options={})
