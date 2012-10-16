@@ -1,10 +1,12 @@
 module BadgesEngine
   class Badge < ActiveRecord::Base
-    
+
+    attr_accessible :name, :image, :description, :criteria
+
     include BadgesEngine::Engine.routes.url_helpers
-    
+
     has_many :assertions
-    
+
     validates_uniqueness_of :name
 
     before_validation(:on=>:create) do
@@ -14,10 +16,10 @@ module BadgesEngine
     def issuer
       BadgesEngine::Configuration.issuer
     end
-    
+
     def criteria
       read_attribute(:criteria).blank? ? badge_path(self) : read_attribute(:criteria)
     end
-    
+
   end
 end
