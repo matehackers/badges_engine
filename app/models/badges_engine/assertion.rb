@@ -7,6 +7,8 @@ module BadgesEngine
 
     include BadgesEngine::Engine.routes.url_helpers
 
+    attr_accessible :user_id, :badge_id, :evidence, :expires, :issued_on
+
     belongs_to :badge
 
     validates_presence_of :badge_id
