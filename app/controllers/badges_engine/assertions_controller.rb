@@ -59,7 +59,10 @@ module BadgesEngine
     # POST /assertions
     # POST /assertions.json
     def create
-      @assertion = Assertion.new(params[:assertion])
+      @assertion = Assertion.new(params[:assertion].except(:user_id,:badge_id))
+
+      @assertion.user = BadgesEngine::Configuration.user_class.find(params[:assertion][:user_id])
+      @assertion.badge = Badge.find(params[:assertion][:badge_id])
 
       respond_to do |format|
         if @assertion.save
