@@ -14,7 +14,11 @@ module BadgesEngine
     validates_presence_of :badge_id
     validates_presence_of :user_id
 
+    validates :user_id, :uniqueness => { :scope => :badge_id }
+
     validates_associated :badge
+
+    # Only one assertion per badge for a given user, makes things easier for us
 
     before_validation(:on=>:create) do
       self.token = SecureRandom.urlsafe_base64(16)
